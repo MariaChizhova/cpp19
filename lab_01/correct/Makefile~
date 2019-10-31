@@ -1,0 +1,21 @@
+BIN=bin/
+OBJECTS=main.o algorithm.o io.o util.o
+LISTOBJECTS=$(addprefix $(BIN), $(OBJECTS))
+
+all: lab1
+
+bin:
+	mkdir -p bin/
+
+lab1: $(LISTOBJECTS) bin
+	gcc $(LISTOBJECTS) -o -Iinclude -Wall -Wextra -Werror lab1
+bin/main.o: src/main.c bin
+	gcc -o -Iinclude -Wall -Wextra -Werror bin/main.o -g src/main.c
+bin/io.o: src/io.c bin
+	gcc -o -Iinclude -Wall -Wextra -Werror bin/io.o -g src/io.c
+bin/util.o: src/util.c bin
+	gcc -o -Iinclude -Wall -Wextra -Werror bin/util.o -g src/util.c
+bin/algoritm.o: src/algorithm.c bin
+	gcc -o -Iinclude -Wall -Wextra -Werror bin/algorithm.o -g src/algorithm.c
+clean:
+	rm -rf bin lab1
