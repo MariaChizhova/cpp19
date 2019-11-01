@@ -1,56 +1,46 @@
 # Task №5 (`WW_io`)
 
-Реализуйте приложение `./lab_05`, которое умеет читать упорядоченный список точек из определённого
-файла текстового или бинарного формата (описаны ниже) и выполнять следующие действия.
+A console application`./lab_05` that can read an ordered list of points from a specific text or binary file and perform the following actions: save the read points to another file in text or binary format, display the number of points and all points on the screen in the format specified as the command line parameter.
 
-1. Сохранять прочитанные точки в другой файл в текстовом или бинарном формате.
-2. Выводить все точки на экран в заданном в качестве параметра командной строки формате.
-3. Выводить на экран количество точек.
+It is guaranteed that the coordinates do not exceed 5'000'000 modulo (five million).
 
-Гарантируется, что координаты не превосходят 5'000'000 по модулю (пять миллионов).
+### The format of text files.
+A text file containing `N` dots consists of` N` lines.
+Each line ends with a linefeed character.
+Each line contains exactly two integers, separated by exactly one space:
+The `x`- coordinate of the point and the` y`- coordinate of the point.
+Other characters in the file are missing, leading zeros are missing.
 
-### Формат текстовых файлов
-Текстовой файл, содержащий `N` точек, состоит из `N` строк.
-Каждая строка заканчивается символом перевода строки.
-В каждой строчке содержится ровно два целых числа, разделённых ровно одним пробелом:
-`x`-координата точки и `y`-координата точки.
-Другие символы в файле отсутствуют, лидирующие нули отсутствуют.
+### The format of binary files.
+A binary file containing `N` points consists of` 6N` bytes.
+Each point is stored as 6 consecutive bytes: three bytes store the coordinate
+`x`, and the next three bytes store the` y` coordinate.
 
-Помните, что стандартные функции ввода-вывода корректно заменяют `\n`
-на нужный конкретной ОС перевод строки, не надо это обрабатывать руками.
+Non-negative numbers are stored byte: from low bytes to high.
+For example, the number 1000 should be stored as three consecutive bytes with
+values of `232, 3, 0`.
 
-### Формат бинарных файлов
-Бинарный файл, содержащий `N` точек, состоит из `6N` байт.
-Каждая точка хранится как 6 подряд идущих байт: три байта хранят координату
-`x`, а следующие три байта хранят координату `y`.
-
-Неотрицательные число хранятся побайтово: от младших байтов к старшим.
-Например, число 1000 должно храниться как три последовательных байта со
-значениями `232, 3, 0`.
-
-### Консольное приложение
-Приложение запускается следующей командой:
-
+### Console application
+The application is launched with the following command:
 ```
 ./lab_05 (loadtext | loadbin) <infile> <action...>
 ```
 
-Здесь используются следующие параметры.
+The following parameters are used here:
 
-* `(loadtext | loadbin)` определяет вид входного файла: `loadtext` для текстового, `loadbin` для двоичного. Один параметр.
-* `<infile>` — относительный путь к входному файлу, который хранит точки. Один параметр.
-* `<action...>` — одна операция, которую нужно выполнить над точками.
-  Задаётся одним или несколькими параметрами.
-  * `(savetext | savebin) <outfile>` — сохранить считанные точки в файл `<outfile>` в текстовом (`savetext`) или бинарном (`savebin`) формате;
-  * `print <fmt>` — вывести все точки на экран, использовать printf-строчку `<fmt>` для вывода.
-    Должно встречаться ровно два спецификатора: первый `%d` соответствует `x`-координате, второй — `y`-координате;
-    Разделители, не указанные в `<fmt>`, добавляться не должны (например, пробелы).
-    После вывода ваша программа должна вывести перевод строки.
-  * `count` — вывести на экран количество точек и перевод строки.
+* `(loadtext | loadbin)` determines a type of input file: `loadtext` for text, `loadbin` for binary. One parameter.
+* `<infile>` is a relative path to the input file, that contains points. One parameter.
+* `<action...>` is an operation that should be executed for these points. It is defined by one or several parameters.
+  * `(savetext | savebin) <outfile>` is an operation that saves read points to the file `<outfile>` in text (`savetext`) or binary (`savebin`) format;
+  * `print <fmt>` is an operation that displays all points on the screen, printf-string `<fmt>` is used for output.
+    There must be exactly two specifiers: the first `%d` corresponds to `x`-coordinate and the second corresponds to `y`-coordinate;
+    Delimiters that are not specified in `<fmt>` should not be added (e. g. spaces).
+    The program prints a line feed after execution.
+  * `count` is an operation that prints the number of points and a line feed.
 
-Гарантируется, что входной файл соответствует формату.
+It is guaranteed that an input file matches the format.
 
-Пример работы:
+Work example:
 
 ```
 $ cat test.txt
@@ -77,21 +67,18 @@ $ ./lab_05 loadbin out.bin print "%d %d "
 1 2 4 3 5 5 
 ```
 
-### Реализация операций `print` и `count`
-Операции `print` и `count` требуется реализовать, используя функцию `apply`.
-Использовать `get_length` для реализации `count` в этом задании запрещается.
+### Implementation of `print` and `count` operations
+Operations `print` and `count` are implemented using `apply` function.
+`get_length` is not used for implementation of `count`.
 
-Функция `apply` выполняет некоторую унарную операцию на каждом элементе списка
-(например, вывод на экран).
-Она должна быть реализована в файлах `clist.h` и `clist.c` и работать для списков
-из элементов произвольного типа:
+`apply` executes some unary operation for all elements of the list
+(for example, output on display).
+It is implemented in files `clist.h` and `clist.c` and works for lists of elements of arbitrary type:
 
 ```C++
 void apply(intrusive_list *list, void (*op)(intrusive_node *node, void *data), void *data);
 ```
 
-Здесь параметр `data` функция `apply` не использует напрямую, а передаёт в функцию `op` как дополнительный параметр.
-Это нужно, чтобы можно было не меняя сигнатуру `apply` передавать в `op`, помимо элемента списка, произвольные параметры.
-Также `data` можно использовать для получения из `op` произвольных значений.
-
-
+Here, `data` parameter is not used by `apply` function directly, but passes it to `op` function as additional parameter.
+It is necessary for passing arbitrary parameters (besides the list element) to `op` without changing the signature of `apply`.
+`data` can also be used for getting arbitrary values from `op`.
