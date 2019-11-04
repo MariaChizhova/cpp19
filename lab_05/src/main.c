@@ -58,18 +58,15 @@ int main(int argc, char *argv[]) {
     intrusive_list list;
     intrusive_list *l = &list;
     init_list(l);
-
+    
+    assert(argc > 3 && argc < 6);
+    
     if (!strcmp(argv[1], "loadtext")) {
         loadtext(argv[2], l);
     } else if (!strcmp(argv[1], "loadbin")) {
         loadbin(argv[2], l);
     } else {
         assert(!"Unknown command");
-    }
-
-    if (argc == 3) {
-        printf("No action specified\n");
-        return 1;
     }
 
     if (!strcmp(argv[3], "print")) {
