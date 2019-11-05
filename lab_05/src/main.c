@@ -32,7 +32,7 @@ void loadbin(char *file_name, intrusive_list *list) {
 }
 
 void savebin(char *file_name, intrusive_list *list) {
-    FILE *fout = fopen(file_name, "w");
+    FILE *fout = fopen(file_name, "wb");
     point_node *pnode;
     int x, y;
     for (intrusive_node *item = list->head.next; item != &list->head; item = item->next) {
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     intrusive_list *l = &list;
     init_list(l);
     
-    assert(argc > 3 && argc < 6);
+    assert(argc >= 4 && argc <= 5);
     
     if (!strcmp(argv[1], "loadtext")) {
         loadtext(argv[2], l);
