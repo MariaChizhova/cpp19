@@ -1,0 +1,3 @@
+/home/maria/cpp2019/chizhova.mariya/lab_13/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/maria/cpp2019/chizhova.mariya/lab_13/cmake-build-debug/CMakeFiles/lab_13.dir
+/home/maria/cpp2019/chizhova.mariya/lab_13/cmake-build-debug/CMakeFiles/edit_cache.dir

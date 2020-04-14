@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/my_array.h
+cstddef
+-
+assert.h
+-
+cstdint
+-
+climits
+-
+
+/home/maria/cpp2019/chizhova.mariya/lab_13/src/main.cpp
+my_array.h
+/home/maria/cpp2019/chizhova.mariya/lab_13/src/my_array.h
+cstddef
+-
+
