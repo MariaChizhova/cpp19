@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.16)
+project(hw_03)
+project(test_hw_03)
+set (CMAKE_CXX_STANDARD 17)
+add_compile_options(-Wall -Wextra -Werror)
+include_directories(include)
+add_executable(hw_03 src/main.cpp src/HuffmnaAchiever.cpp src/CLI.cpp)
+add_executable(test_hw_03 src/HuffmnaAchiever.cpp src/CLI.cpp test/TestMain.cpp test/doctest.h)
